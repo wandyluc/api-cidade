@@ -1,0 +1,25 @@
+package br.com.cidade.wscidade.repositories;
+
+import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CidadeRepository {
+
+	private Long ibgeId;	
+	private String uf;	
+	private String name;	
+	private Boolean capital;	
+	private BigDecimal lon;	
+	private BigDecimal lat;	
+	private String noAccents;	
+	private String alternativeNames;	
+	private String microregion;	
+	private String mesoregion;
+	
+}

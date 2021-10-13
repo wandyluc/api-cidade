@@ -1,0 +1,8 @@
+package br.com.cidade.wscidade.config;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataLoader {
+
+}

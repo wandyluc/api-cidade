@@ -1,0 +1,10 @@
+package br.com.cidade.wscidade.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.cidade.wscidade.entities.Cidade;
+
+public interface CidadeRepository extends JpaRepository<Cidade, Long>{
+
+	
+}

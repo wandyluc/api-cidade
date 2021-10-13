@@ -1,0 +1,69 @@
+package br.com.cidade.wscidade.util;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+
+public class Utils {
+
+	private static final String STRING_EMPTY = "";
+
+	public static boolean isNull(Object object) {
+		return object == null;
+	}
+
+	public static boolean isEmptyOrNull(String pSString) {
+
+		return (pSString == null || pSString.trim().equals(STRING_EMPTY));
+	}
+
+	public static boolean isEmptyOrNull(Object object) {
+		boolean retorno = false;
+
+		if (isNull(object)) {
+			return true;
+		}
+
+		if (object instanceof Collection) {
+			retorno = ((Collection<?>) object).isEmpty();
+		}
+
+		else if (object instanceof String) {
+			retorno = object.toString().trim().equals(STRING_EMPTY);
+		}
+
+		return retorno;
+	}
+
+	public static Long convertToLong(Object param) {
+
+		try {
+			return Long.valueOf(param.toString());
+		} catch (Exception e) {
+			throw new RuntimeException("Não converte para Long");
+		}
+
+	}
+
+	public static Boolean convertToBoolean(Object param) {
+		
+		if (isEmptyOrNull(param)) {
+			return Boolean.FALSE;
+		} else if(param.toString().toLowerCase().contains("false")) {
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.TRUE;
+	}
+
+	public static BigDecimal convertToBigDecimal(Object param) {
+
+		try {
+			return new BigDecimal(param.toString());
+		} catch (Exception e) {
+			throw new RuntimeException("Não converte para BigDecimal");
+		}
+
+		
+	}
+
+}

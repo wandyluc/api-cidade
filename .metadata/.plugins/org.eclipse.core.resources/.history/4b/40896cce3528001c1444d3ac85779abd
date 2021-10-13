@@ -1,0 +1,14 @@
+package br.com.cidade.wscidade.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import br.com.cidade.wscidade.entities.Cidade;
+
+public interface CidadeRepository extends JpaRepository<Cidade, Long>{
+
+	@Query(value = "select name from tbcidade where capital=true order by name")
+	List<Cidade> buscarCapitaisEmOrdemAlfabetica();
+}

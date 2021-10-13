@@ -1,0 +1,39 @@
+package br.com.cidade.wscidade.services;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO;
+import br.com.cidade.wscidade.dto.EstadoMaisMenosCidadeDTO;
+import br.com.cidade.wscidade.repositories.CidadeRepository;
+
+@Service
+public class CidadeService {
+
+	@Autowired
+	private CidadeRepository repository;
+	
+	public List<CidadeCapitalOrdenadaDTO> buscarCapitaisEmOrdemAlfabetica(){		
+		return repository.buscarCapitaisEmOrdemAlfabetica();						
+	}
+	
+	public List<EstadoMaisMenosCidadeDTO> buscarEstadoMaisMenosCidade(){
+		
+		//List<EstadoMaisMenosCidadeDTO> estados = repository.quantidadeCidadePorEstado();
+		List<EstadoMaisMenosCidadeDTO> retorno = new ArrayList<EstadoMaisMenosCidadeDTO>();
+		
+		/*EstadoMaisMenosCidadeDTO estadoMenosCidades = estados.stream().min(Comparator.comparing(EstadoMaisMenosCidadeDTO::getQuantidade)).orElseThrow(NoSuchElementException::new);
+		retorno.add(estadoMenosCidades);
+		
+		EstadoMaisMenosCidadeDTO estadoMaisCidades = estados.stream().max(Comparator.comparing(EstadoMaisMenosCidadeDTO::getQuantidade)).orElseThrow(NoSuchElementException::new);
+		retorno.add(estadoMaisCidades);*/
+		
+		return retorno;						
+	}
+	
+}

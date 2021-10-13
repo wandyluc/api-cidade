@@ -1,0 +1,72 @@
+package br.com.cidade.wscidade.services;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO;
+import br.com.cidade.wscidade.dto.CidadeDTO;
+import br.com.cidade.wscidade.dto.CidadeNomeDTO;
+import br.com.cidade.wscidade.dto.EstadoMaisMenosCidadeDTO;
+import br.com.cidade.wscidade.entities.Cidade;
+import br.com.cidade.wscidade.repositories.CidadeRepository;
+import br.com.cidade.wscidade.util.Utils;
+
+@Service
+public class CidadeService {
+
+	@Autowired
+	private CidadeRepository repository;
+	
+	public List<CidadeCapitalOrdenadaDTO> buscarCapitaisEmOrdemAlfabetica(){		
+		return repository.buscarCapitaisEmOrdemAlfabetica();						
+	}
+	
+	public List<EstadoMaisMenosCidadeDTO> buscarEstadoMaisMenosCidade(){
+		
+		List<EstadoMaisMenosCidadeDTO> estados = repository.quantidadeCidadePorEstado();
+		List<EstadoMaisMenosCidadeDTO> retorno = new ArrayList<EstadoMaisMenosCidadeDTO>();
+		
+		EstadoMaisMenosCidadeDTO estadoMenosCidades = estados.stream().min(Comparator.comparing(EstadoMaisMenosCidadeDTO::getQuantidade)).orElseThrow(NoSuchElementException::new);
+		retorno.add(estadoMenosCidades);
+		
+		EstadoMaisMenosCidadeDTO estadoMaisCidades = estados.stream().max(Comparator.comparing(EstadoMaisMenosCidadeDTO::getQuantidade)).orElseThrow(NoSuchElementException::new);
+		retorno.add(estadoMaisCidades);
+		
+		return retorno;						
+	}
+	
+	public Optional<EstadoMaisMenosCidadeDTO> buscarQuantidadeCidadePorEstado(String uf){
+		
+		List<EstadoMaisMenosCidadeDTO> estados = repository.quantidadeCidadePorEstado();
+		
+		if(Utils.isEmptyOrNull(uf)) {
+			throw new RuntimeException("Estado nao encontrado");
+		}
+		
+		return estados.stream().filter(l->l.getUf().equals(uf.toUpperCase())).findFirst();						
+	}
+	
+	public Optional<CidadeDTO> buscaCidadePorIbge(Long ibge){		
+		return repository.buscarCidadePorIbge(ibge);						
+	}
+	
+	public List<CidadeNomeDTO> buscarCidadesPorEstado(String uf){
+				
+		if(Utils.isEmptyOrNull(uf)) {
+			throw new RuntimeException("Estado nao encontrado");
+		}
+
+		return repository.buscarCidaderPorUF(uf.toUpperCase());						
+	}
+	
+	public Cidade adicionaCidade(Cidade cidade) {
+		return repository.saveAndFlush(cidade);
+	}
+	
+}

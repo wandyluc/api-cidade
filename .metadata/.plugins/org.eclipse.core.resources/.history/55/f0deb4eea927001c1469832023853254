@@ -1,0 +1,5 @@
+package br.com.cidade.wscidade.repositories;
+
+public class CidadeRepository {
+
+}

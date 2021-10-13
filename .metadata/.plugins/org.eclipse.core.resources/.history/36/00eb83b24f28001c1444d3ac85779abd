@@ -1,0 +1,40 @@
+package br.com.cidade.wscidade.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO;
+import br.com.cidade.wscidade.dto.EstadoMaisMenosCidadeDTO;
+import br.com.cidade.wscidade.services.CidadeService;
+
+@RestController
+@RequestMapping(value = "/cidade")
+public class CidadeController {
+
+	@Autowired
+	private CidadeService service;
+	
+	@GetMapping(value = "/capitais-ordem-alfabetica")
+	public ResponseEntity<List<CidadeCapitalOrdenadaDTO>> buscarCapitaisEmOrdemAlfabetica(){
+		List<CidadeCapitalOrdenadaDTO> result = service.buscarCapitaisEmOrdemAlfabetica();		
+		return ResponseEntity.ok(result);
+	}
+	
+	@GetMapping(value = "/estado-mais-menos-cidades")
+	public ResponseEntity<List<EstadoMaisMenosCidadeDTO>> buscarEstadoMaisMenosCidade(){
+		List<EstadoMaisMenosCidadeDTO> result = service.buscarEstadoMaisMenosCidade();		
+		return ResponseEntity.ok(result);
+	}
+	
+	@GetMapping(value = "/cidades-por-estado/{uf}")
+	public ResponseEntity<EstadoMaisMenosCidadeDTO> buscarQuantidadeCidadePorEstado(@PathVariable String uf){
+		EstadoMaisMenosCidadeDTO result = service.buscarQuantidadeCidadePorEstado(uf);		
+		return ResponseEntity.ok(result);
+	}
+}

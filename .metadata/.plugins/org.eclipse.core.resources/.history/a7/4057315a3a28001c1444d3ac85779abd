@@ -1,0 +1,6 @@
+package br.com.cidade.wscidade.dto;
+
+public class EstadoMaisMenosCidadeDTO {
+
+	
+}

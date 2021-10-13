@@ -1,0 +1,37 @@
+package br.com.cidade.wscidade.entities;
+
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="tbCidade")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Cidade {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long ibgeId;	
+	private String uf;	
+	private String name;	
+	private Boolean capital;
+	@Column(precision = 3,scale = 9)
+	private BigDecimal lon;
+	@Column(precision = 3,scale = 9)
+	private BigDecimal lat;	
+	private String noAccents;	
+	private String alternativeNames;	
+	private String microregion;	
+	private String mesoregion;
+}

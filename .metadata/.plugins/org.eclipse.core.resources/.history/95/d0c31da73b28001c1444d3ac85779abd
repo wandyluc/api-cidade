@@ -1,0 +1,19 @@
+package br.com.cidade.wscidade.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO;
+import br.com.cidade.wscidade.dto.CidadeDTO;
+import br.com.cidade.wscidade.entities.Cidade;
+
+public interface CidadeRepository extends JpaRepository<Cidade, Long>{
+
+	@Query("SELECT new br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO(c.name) FROM Cidade as c WHERE c.capital=true ORDER BY c.name")
+	List<CidadeCapitalOrdenadaDTO> buscarCapitaisEmOrdemAlfabetica();
+	
+	//@Query("SELECT new br.com.cidade.wscidade.dto.EstadoMaisMenosCidadeDTO(c.uf, SUM()) FROM Cidade as c WHERE c.capital=true ORDER BY c.name")
+	//List<CidadeCapitalOrdenadaDTO> quantidadeCidadePorEstado();
+}

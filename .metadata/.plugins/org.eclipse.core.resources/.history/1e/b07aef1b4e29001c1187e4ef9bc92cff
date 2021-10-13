@@ -1,0 +1,38 @@
+package br.com.cidade.wscidade.enums;
+
+import java.util.Arrays;
+
+import br.com.cidade.wscidade.util.Utils;
+
+public enum Coluna {
+	
+	IBGE_ID("ibge_id"),
+	UF("uf"),
+	NAME("name"),
+	CAPITAL("capital"),
+	LON("lon"),
+	LAT("lat"),
+	NO_ACCENTS("no_accents"),
+	ALTERNATIVE_NAMES("alternative_names"),
+	MICROREGION("microregion"),
+	MESOREGION("mesoregion");
+	
+	private String coluna;
+
+	private Coluna(String coluna) {
+		this.coluna = coluna;
+	}
+	
+	public static Coluna getColuna(String nome) {
+		
+		if(Utils.isEmptyOrNull(nome)) {
+			return null;
+		}		
+		return Arrays.stream(Coluna.values()).filter(f -> f.getColuna().contains(nome.toLowerCase())).findFirst().get();
+	}
+
+	public String getColuna() {
+		return coluna;
+	}
+
+}
