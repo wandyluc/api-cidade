@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO;
 import br.com.cidade.wscidade.dto.CidadeDTO;
+import br.com.cidade.wscidade.dto.CidadeMaiorDistanciaOutra;
 import br.com.cidade.wscidade.dto.CidadeNomeDTO;
 import br.com.cidade.wscidade.dto.EstadoMaisMenosCidadeDTO;
 import br.com.cidade.wscidade.entities.Cidade;
@@ -84,6 +85,12 @@ public class CidadeController {
 	@GetMapping(value = "/qte-registro-total")
 	public ResponseEntity<Map<String, Integer>> quantidadeREgistroTotal(){
 		Map<String, Integer> result = service.qtdeRegistrosTotal();		
+		return ResponseEntity.ok(result);
+	}
+	
+	@GetMapping(value = "/maior-distancia-entre-cidades")
+	public ResponseEntity<List<CidadeMaiorDistanciaOutra>> maiorDistanciaEntreCidade(){
+		List<CidadeMaiorDistanciaOutra> result = service.maiorDistanciaEntreCidade();
 		return ResponseEntity.ok(result);
 	}
 }

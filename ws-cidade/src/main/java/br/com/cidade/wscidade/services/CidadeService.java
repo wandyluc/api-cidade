@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.cidade.wscidade.dto.CidadeCapitalOrdenadaDTO;
 import br.com.cidade.wscidade.dto.CidadeDTO;
+import br.com.cidade.wscidade.dto.CidadeMaiorDistanciaOutra;
 import br.com.cidade.wscidade.dto.CidadeNomeDTO;
 import br.com.cidade.wscidade.dto.EstadoMaisMenosCidadeDTO;
 import br.com.cidade.wscidade.entities.Cidade;
@@ -168,6 +169,27 @@ public class CidadeService {
 		Map<String, Integer> retorno = new HashMap<String, Integer>();
 		List<Cidade> lista = repository.findAll();
 		retorno.put("totalRegistros", lista.size());
+		return retorno;
+	}
+	
+	public List<CidadeMaiorDistanciaOutra> maiorDistanciaEntreCidade() {
+		List<Cidade> lista = repository.findAll();
+		List<CidadeMaiorDistanciaOutra> retorno = new ArrayList<CidadeMaiorDistanciaOutra>();
+		CidadeMaiorDistanciaOutra maiorDistancia = null;
+		double maior = 0;
+		for(Cidade c1 : lista) {
+			for(Cidade c2 : lista) {
+				if(!c1.getName().contains(c2.getName())) {
+					CidadeMaiorDistanciaOutra cidade = new CidadeMaiorDistanciaOutra(c1, c2);
+					if (cidade.getDistancia() > maior) {
+						maior = cidade.getDistancia();
+						maiorDistancia = cidade;
+						
+					}
+				}
+			}
+		}
+		retorno.add(maiorDistancia);
 		return retorno;
 	}
 
